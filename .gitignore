@@ -21,6 +21,5 @@ build/
 .eslintcache
 
 # dotenv environment variables file
-/server/.env
-/client/.env
+*/.env
 .env.test
