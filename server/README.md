@@ -1,3 +1,12 @@
-# waiting-lists-service
+# Video playlist server
 
-Waiting lists service
+This project is the backend service of a side project developed by Raz Kerman.
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+[http://localhost:3001](http://localhost:3001) is the deafult port to this service.
