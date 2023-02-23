@@ -3,32 +3,32 @@ import { Playlist, Song } from "../../../types/playlist";
 
 type PlaylistState = {
   currentVideo: Song | undefined;
-  playlist: Playlist;
+  videoPlaylist: Playlist;
 };
 
 export const playlistSlice = createSlice({
   name: "playlist",
   initialState: {
     currentVideo: undefined,
-    playlist: [],
+    videoPlaylist: [],
   } as PlaylistState,
   reducers: {
     addVideoToPlaylist: (state, action) => {
-      state.playlist.push(action.payload);
-      if (state.playlist.length === 1) {
-        state.currentVideo = state.playlist[0];
+      state.videoPlaylist.push(action.payload);
+      if (state.videoPlaylist.length === 1) {
+        state.currentVideo = state.videoPlaylist[0];
       }
     },
     updateVideoToNextSong: (state) => {
-      if (state.playlist.length > 0) {
-        state.currentVideo = state.playlist[0];
+      if (state.videoPlaylist.length > 0) {
+        state.currentVideo = state.videoPlaylist[0];
       }
     },
     removeVideoFormList: (state) => {
-      state.playlist.shift();
+      state.videoPlaylist.shift();
     },
     setInitalPlaylists: (state, action) => {
-      state.playlist = action.payload;
+      state.videoPlaylist = action.payload;
     },
   },
 });
@@ -40,8 +40,8 @@ export const {
   setInitalPlaylists,
 } = playlistSlice.actions;
 
-export const getCurrentVideo = (state: PlaylistState) => state.playlist;
+export const getCurrentVideo = (state: any) => state.playlist.currentVideo;
 
-export const getRecordsList = (state: PlaylistState) => state.playlist;
+export const getPlaylist = (state: any) => state.playlist.videoPlaylist;
 
 export default playlistSlice.reducer;

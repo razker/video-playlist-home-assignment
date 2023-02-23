@@ -7,16 +7,7 @@ import FBox from "../FBox/FBox";
 import Playlist from "../Playlist/Playlist";
 import styles from "./Home.module.css";
 
-type HomeProps = {};
-
-const Home = ({}: HomeProps) => {
-  const [searchTextInput, setSearchTextInput] = useState("");
-  const [searchText, setSearchText] = useState("");
-
-  const handleSubmit = () => {
-    setSearchText(searchTextInput);
-  };
-
+const Home = () => {
   useEffect(() => {
     socket.on("connect", () => {
       socket.emit("getItems");
