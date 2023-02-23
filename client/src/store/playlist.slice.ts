@@ -27,7 +27,7 @@ export const playlistSlice = createSlice({
     removeVideoFormList: (state) => {
       state.videoPlaylist.shift();
     },
-    setInitalPlaylists: (state, action) => {
+    setInitalPlaylist: (state, action) => {
       state.videoPlaylist = action.payload;
     },
   },
@@ -37,11 +37,12 @@ export const {
   addVideoToPlaylist,
   updateVideoToNextSong,
   removeVideoFormList,
-  setInitalPlaylists,
+  setInitalPlaylist,
 } = playlistSlice.actions;
 
 export const getCurrentVideo = (state: any) => state.playlist.currentVideo;
 
-export const getPlaylist = (state: any) => state.playlist.videoPlaylist;
+export const getPlaylist = (state: any) =>
+  state.playlist.videoPlaylist as Playlist;
 
 export default playlistSlice.reducer;

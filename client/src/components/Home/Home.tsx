@@ -1,5 +1,3 @@
-import { Typography, Button, useTheme } from "@mui/material";
-import _ from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { socket, SocketContext } from "../../socket/socket";
 import ColumnBox from "../ColumnBox/ColumnBox";
@@ -9,9 +7,12 @@ import styles from "./Home.module.css";
 
 const Home = () => {
   useEffect(() => {
+    socket.connect();
+
     socket.on("connect", () => {
-      socket.emit("getItems");
+      socket.emit("getPlaylist");
     });
+
     return () => {
       socket.disconnect();
     };

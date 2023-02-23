@@ -5,7 +5,7 @@ import { SocketContext } from "../../socket/socket";
 import {
   addVideoToPlaylist,
   getPlaylist,
-  setInitalPlaylists,
+  setInitalPlaylist,
   updateVideoToNextSong,
 } from "../../store/playlist.slice";
 import ColumnBox from "../ColumnBox/ColumnBox";
@@ -32,14 +32,10 @@ const Playlist = () => {
       setIsLoading(false);
     });
 
-    socketContext.on("getPlaylist", (resp) => {
-      if (resp) {
-        if (resp.success) {
-          dispatch(setInitalPlaylists(resp.data));
-          dispatch(updateVideoToNextSong());
-        } else {
-          window.alert(resp.error);
-        }
+    socketContext.on("getPlaylistResponse", (resp) => {
+      if (resp.playlist) {
+        dispatch(setInitalPlaylist(resp.playlist));
+        dispatch(updateVideoToNextSong());
       }
     });
   }, [dispatch, socketContext]);
@@ -70,10 +66,13 @@ const Playlist = () => {
       </FBox>
       <FBox>
         <List>
-          {playList.map((song: any, index: number) => {
+          {playList.map((song, index: number) => {
             return (
-              <ListItem key={index} selected={index === 0}>
-                <ListItemText primary={song.title} />
+              <ListItem key={song.id} selected={index === 0}>
+                <ListItemText
+                  primary={song.title}
+                  secondary={song.durationInSeconds}
+                />
               </ListItem>
             );
           })}
