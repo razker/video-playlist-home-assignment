@@ -62,8 +62,7 @@ io.on("connection", (socket) => {
     connectionCount -= 1;
     logger.info("connectionCount after disconnect", connectionCount);
     if (connectionCount == 0) {
-      //TODO: implement later
-      // playlist = [];
+      playlist = [];
     } else if (connectionCount < 0) {
       connectionCount = 0;
     }
