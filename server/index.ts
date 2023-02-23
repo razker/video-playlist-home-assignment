@@ -24,14 +24,7 @@ const io = new Server(server, {
   },
 });
 
-let playlist: Playlist = [
-  {
-    videoId: "123",
-    title: "123",
-    thumbnail: { url: "123", width: 12, height: 12 },
-    id: "123",
-  },
-];
+let playlist: Playlist = [];
 
 let connectionCount = 0;
 const youtubeService = new YoutubeService();
@@ -47,6 +40,15 @@ io.on("connection", (socket) => {
       playlist.push(videoToAdd);
       logger.info("Video was added", videoToAdd);
       io.emit("addVideoResponse", videoToAdd);
+    } catch (e) {
+      logger.error(e);
+    }
+  });
+
+  socket.on("deleteVideo", async (videoId) => {
+    try {
+      playlist = playlist.filter((video) => video.id !== videoId);
+      io.emit("getPlaylistResponse", { playlist });
     } catch (e) {
       logger.error(e);
     }

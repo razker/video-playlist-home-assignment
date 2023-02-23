@@ -24,10 +24,6 @@ export class YoutubeService {
       throw new Error(json.error.message);
     }
 
-    if (json.items.length !== 1) {
-      throw new Error(`Got ${json.items.length} items from YouTube`);
-    }
-
     const item = json.items[0];
 
     return {

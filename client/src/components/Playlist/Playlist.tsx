@@ -32,6 +32,7 @@ const Playlist = () => {
 
     socketContext.on("getPlaylistResponse", (resp) => {
       if (resp.playlist) {
+        console.log("getPlaylistResponse", resp.playlist);
         dispatch(setInitalPlaylist(resp.playlist));
         dispatch(updateVideoToNextSong());
       }
@@ -50,7 +51,7 @@ const Playlist = () => {
       <FBox>
         <TextField
           id="standard-basic"
-          label="insert link"
+          label="Search video"
           value={textInput}
           onChange={(e) => setTextInput(e.target.value)}
         />

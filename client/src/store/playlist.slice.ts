@@ -17,7 +17,6 @@ export const playlistSlice = createSlice({
       if (
         !state.videoPlaylist.find((video) => video.id === action.payload.id)
       ) {
-        console.log("inside");
         state.videoPlaylist.push(action.payload);
         if (state.videoPlaylist.length === 1) {
           state.currentVideo = state.videoPlaylist[0];
@@ -45,7 +44,8 @@ export const {
   setInitalPlaylist,
 } = playlistSlice.actions;
 
-export const getCurrentVideo = (state: any) => state.playlist.currentVideo;
+export const getCurrentVideo = (state: any) =>
+  state.playlist.currentVideo as Video;
 
 export const getPlaylist = (state: any) =>
   state.playlist.videoPlaylist as Playlist;
