@@ -21,12 +21,10 @@ const Playlist = () => {
   const [textInput, setTextInput] = useState("");
 
   useEffect(() => {
-    socketContext.on("addSong", (resp) => {
+    socketContext.on("addVideoResponse", (resp) => {
       if (resp) {
-        if (resp.success) {
-          dispatch(addVideoToPlaylist(resp.data));
-          setTextInput("");
-        }
+        dispatch(addVideoToPlaylist(resp));
+        setTextInput("");
       }
 
       setIsLoading(false);
@@ -42,7 +40,7 @@ const Playlist = () => {
 
   const onAddVideoHandler = () => {
     if (!isLoading) {
-      socketContext.emit("addSong", textInput);
+      socketContext.emit("addVideo", textInput);
       setIsLoading(true);
     }
   };
@@ -66,13 +64,10 @@ const Playlist = () => {
       </FBox>
       <FBox>
         <List>
-          {playList.map((song, index: number) => {
+          {playList.map((video, index: number) => {
             return (
-              <ListItem key={song.id} selected={index === 0}>
-                <ListItemText
-                  primary={song.title}
-                  secondary={song.durationInSeconds}
-                />
+              <ListItem key={video.id} selected={index === 0}>
+                <ListItemText primary={video.title} />
               </ListItem>
             );
           })}

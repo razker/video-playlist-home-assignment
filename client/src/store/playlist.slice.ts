@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Playlist, Song } from "../../../types/playlist";
+import { Playlist, Video } from "../../../types/playlist";
 
 type PlaylistState = {
-  currentVideo: Song | undefined;
+  currentVideo: Video | undefined;
   videoPlaylist: Playlist;
 };
 
@@ -14,9 +14,14 @@ export const playlistSlice = createSlice({
   } as PlaylistState,
   reducers: {
     addVideoToPlaylist: (state, action) => {
-      state.videoPlaylist.push(action.payload);
-      if (state.videoPlaylist.length === 1) {
-        state.currentVideo = state.videoPlaylist[0];
+      if (
+        !state.videoPlaylist.find((video) => video.id === action.payload.id)
+      ) {
+        console.log("inside");
+        state.videoPlaylist.push(action.payload);
+        if (state.videoPlaylist.length === 1) {
+          state.currentVideo = state.videoPlaylist[0];
+        }
       }
     },
     updateVideoToNextSong: (state) => {

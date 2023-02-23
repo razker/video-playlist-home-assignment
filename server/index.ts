@@ -6,6 +6,7 @@ import { Server } from "socket.io";
 import { Playlist } from "../types/playlist";
 
 import { APILogger } from "./logger/api.logger";
+import { YoutubeService } from "./services/youtube.service";
 require("dotenv").config();
 
 const port = process.env.PORT || 3080;
@@ -28,19 +29,27 @@ let playlist: Playlist = [
     videoId: "123",
     title: "123",
     thumbnail: { url: "123", width: 12, height: 12 },
-    durationInSeconds: 123,
     id: "123",
   },
 ];
+
 let connectionCount = 0;
+const youtubeService = new YoutubeService();
 
 io.on("connection", (socket) => {
   connectionCount += 1;
   logger.info("Made socket connection");
   logger.info("connectionCount after connect", connectionCount);
 
-  socket.on("addSong", (songUrl) => {
-    console.log("songUrl", songUrl);
+  socket.on("addVideo", async (videoQuery) => {
+    try {
+      const videoToAdd = await youtubeService.queryVideo(videoQuery);
+      playlist.push(videoToAdd);
+      logger.info("Video was added", videoToAdd);
+      io.emit("addVideoResponse", videoToAdd);
+    } catch (e) {
+      logger.error(e);
+    }
   });
 
   socket.on("getPlaylist", () => {
