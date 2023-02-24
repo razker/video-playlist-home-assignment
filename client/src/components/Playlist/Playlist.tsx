@@ -1,4 +1,5 @@
 import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
+import { useCallback } from "react";
 import { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SocketContext } from "../../socket/socket";
@@ -6,7 +7,7 @@ import {
   addVideoToPlaylist,
   getPlaylist,
   setInitalPlaylist,
-  updateVideoToNextSong,
+  updateVideoToNextVideo,
 } from "../../store/playlist.slice";
 import ColumnBox from "../ColumnBox/ColumnBox";
 import FBox from "../FBox/FBox";
@@ -32,19 +33,27 @@ const Playlist = () => {
 
     socketContext.on("getPlaylistResponse", (resp) => {
       if (resp.playlist) {
-        console.log("getPlaylistResponse", resp.playlist);
         dispatch(setInitalPlaylist(resp.playlist));
-        dispatch(updateVideoToNextSong());
+        dispatch(updateVideoToNextVideo());
       }
     });
   }, [dispatch, socketContext]);
 
-  const onAddVideoHandler = () => {
+  const onAddVideoHandler = useCallback(() => {
     if (!isLoading) {
       socketContext.emit("addVideo", textInput);
       setIsLoading(true);
     }
-  };
+  }, [isLoading, socketContext, textInput]);
+
+  const onEnterPress = useCallback(
+    (e: any) => {
+      if (e.key === "Enter") {
+        onAddVideoHandler();
+      }
+    },
+    [onAddVideoHandler]
+  );
 
   return (
     <ColumnBox>
@@ -54,6 +63,7 @@ const Playlist = () => {
           label="Search video"
           value={textInput}
           onChange={(e) => setTextInput(e.target.value)}
+          onKeyUp={onEnterPress}
         />
         <Button
           disabled={isLoading}
@@ -64,11 +74,26 @@ const Playlist = () => {
         </Button>
       </FBox>
       <FBox>
-        <List>
+        <List
+          sx={{
+            width: "100%",
+            bgcolor: "background.paper",
+            position: "relative",
+            overflow: "auto",
+            maxHeight: 600,
+            "& ul": { padding: 0 },
+          }}
+        >
           {playList.map((video, index: number) => {
             return (
               <ListItem key={video.id} selected={index === 0}>
                 <ListItemText primary={video.title} />
+                <img
+                  src={video.thumbnail.url}
+                  width={video.thumbnail.width}
+                  height={video.thumbnail.height}
+                  alt=""
+                />
               </ListItem>
             );
           })}

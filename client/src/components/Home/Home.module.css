@@ -4,4 +4,5 @@
 
 .innerContainer {
   flex: 1;
+  align-items: center;
 }

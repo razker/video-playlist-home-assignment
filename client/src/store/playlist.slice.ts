@@ -23,7 +23,7 @@ export const playlistSlice = createSlice({
         }
       }
     },
-    updateVideoToNextSong: (state) => {
+    updateVideoToNextVideo: (state) => {
       if (state.videoPlaylist.length > 0) {
         state.currentVideo = state.videoPlaylist[0];
       }
@@ -39,7 +39,7 @@ export const playlistSlice = createSlice({
 
 export const {
   addVideoToPlaylist,
-  updateVideoToNextSong,
+  updateVideoToNextVideo,
   removeVideoFormList,
   setInitalPlaylist,
 } = playlistSlice.actions;

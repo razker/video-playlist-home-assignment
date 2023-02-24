@@ -1,14 +1,14 @@
-import styles from "./VideoPlayer.module.css";
-import YouTube from "react-youtube";
+import YouTube, { YouTubeProps } from "react-youtube";
 import { useContext, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCurrentVideo,
   removeVideoFormList,
-  updateVideoToNextSong,
+  updateVideoToNextVideo,
 } from "../../store/playlist.slice";
 import FBox from "../FBox/FBox";
 import { SocketContext } from "../../socket/socket";
+import styles from "./VideoPlayer.module.css";
 
 const VideoPlayer = () => {
   const player: any = useRef(null);
@@ -16,7 +16,7 @@ const VideoPlayer = () => {
   const socketContext = useContext(SocketContext);
   const dispatch = useDispatch();
 
-  const videoOptions = {
+  const videoOptions: YouTubeProps["opts"] = {
     playerVars: {
       autoplay: 1,
     },
@@ -30,9 +30,19 @@ const VideoPlayer = () => {
 
   const handleStatusChanged = (e: any) => {
     if (e.data === 0) {
-      socketContext.emit("deleteVideo", currentVideo.id);
-      dispatch(updateVideoToNextSong());
+      handleChangeToNextVideo();
     }
+  };
+
+  const handleError = (e: any) => {
+    if (e.data) {
+      handleChangeToNextVideo();
+    }
+  };
+
+  const handleChangeToNextVideo = () => {
+    socketContext.emit("deleteVideo", currentVideo.id);
+    dispatch(updateVideoToNextVideo());
   };
 
   return (
@@ -42,6 +52,7 @@ const VideoPlayer = () => {
         videoId={currentVideo?.videoId}
         onStateChange={handleStatusChanged}
         opts={videoOptions}
+        onError={handleError}
       />
     </FBox>
   );

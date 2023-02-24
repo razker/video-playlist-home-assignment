@@ -1,9 +1,6 @@
 import { Video } from "../../types/playlist";
 import { APILogger } from "../logger/api.logger";
-import {
-  parse as parseDuration,
-  toSeconds as durationToSeconds,
-} from "iso8601-duration";
+import axios from "axios";
 import { v4 as uuid } from "uuid";
 
 export class YoutubeService {
@@ -19,7 +16,7 @@ export class YoutubeService {
     return `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${query}&key=${this.apiKey}`;
   }
 
-  parseSongFromVideoJson(json): Video {
+  parseVideoFromVideoJson(json): Video {
     if ("error" in json) {
       throw new Error(json.error.message);
     }
@@ -36,12 +33,10 @@ export class YoutubeService {
 
   async queryVideo(queryString) {
     try {
-      const response = await fetch(this.searchUrl(queryString));
-      const json = await response.json();
+      const response = await axios.get(this.searchUrl(queryString));
+      const videoToReturn = this.parseVideoFromVideoJson(response.data);
 
-      const songToReturn = this.parseSongFromVideoJson(json);
-
-      return songToReturn;
+      return videoToReturn;
     } catch (error) {
       throw Error(error);
     }
