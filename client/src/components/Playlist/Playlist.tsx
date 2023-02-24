@@ -89,13 +89,19 @@ const Playlist = () => {
           {playList.map((video, index: number) => {
             return (
               <ListItem key={video.id} selected={index === 0}>
-                <ListItemText primary={video.title} />
-                <img
-                  src={video.thumbnail.url}
-                  width={video.thumbnail.width}
-                  height={video.thumbnail.height}
-                  alt=""
-                />
+                <FBox className={styles.listItemContainer}>
+                  <FBox className={styles.videoTextOutterConatiner}>
+                    <span className={styles.videoText}>{video.title}</span>
+                  </FBox>
+                  <FBox>
+                    <img
+                      src={video.thumbnail.url}
+                      width={video.thumbnail.width}
+                      height={video.thumbnail.height}
+                      alt={`${video.id}-thumbnail`}
+                    />
+                  </FBox>
+                </FBox>
               </ListItem>
             );
           })}
