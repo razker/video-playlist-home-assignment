@@ -12,11 +12,11 @@ export class YoutubeService {
     this.apiKey = process.env.YOUTUBE_DATA_API_KEY;
   }
 
-  searchUrl(query: string) {
+  videoQueryUrl(query: string) {
     return `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${query}&key=${this.apiKey}`;
   }
 
-  parseVideoResponse(videoResponse): Video {
+  async parseVideoResponse(videoResponse) {
     if ("error" in videoResponse) {
       throw new Error(videoResponse.error.message);
     }
@@ -33,7 +33,7 @@ export class YoutubeService {
 
   async queryVideo(queryString) {
     try {
-      const response = await axios.get(this.searchUrl(queryString));
+      const response = await axios.get(this.videoQueryUrl(queryString));
       const videoToReturn = this.parseVideoResponse(response.data);
 
       return videoToReturn;
