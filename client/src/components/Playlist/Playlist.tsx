@@ -83,7 +83,6 @@ const Playlist = () => {
             position: "relative",
             overflow: "auto",
             maxHeight: 480,
-            "& ul": { padding: 0 },
           }}
         >
           {playList.map((video, index: number) => {
