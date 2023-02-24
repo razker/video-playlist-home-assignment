@@ -23,6 +23,7 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
+    console.log("currentVideo", currentVideo);
     if (player?.current && currentVideo?.videoId) {
       player.current.getInternalPlayer().playVideo();
     }
@@ -41,7 +42,7 @@ const VideoPlayer = () => {
   };
 
   const handleChangeToNextVideo = () => {
-    socketContext.emit("deleteVideo", currentVideo.id);
+    dispatch(removeVideoFormList(currentVideo.id));
     dispatch(updateVideoToNextVideo());
   };
 

@@ -28,8 +28,10 @@ export const playlistSlice = createSlice({
         state.currentVideo = state.videoPlaylist[0];
       }
     },
-    removeVideoFormList: (state) => {
-      state.videoPlaylist.shift();
+    removeVideoFormList: (state, action) => {
+      state.videoPlaylist = state.videoPlaylist.filter(
+        (video) => video.id !== action.payload
+      );
     },
     setInitalPlaylist: (state, action) => {
       state.videoPlaylist = action.payload;

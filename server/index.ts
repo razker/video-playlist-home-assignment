@@ -45,10 +45,10 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("deleteVideo", async (videoId) => {
+  socket.on("deleteVideo", (videoId) => {
     try {
       playlist = playlist.filter((video) => video.id !== videoId);
-      io.emit("getPlaylistResponse", { playlist });
+      io.emit("deleteVideoResponse", videoId);
     } catch (e) {
       logger.error(e);
     }

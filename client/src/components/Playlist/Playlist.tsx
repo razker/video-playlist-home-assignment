@@ -6,9 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { SocketContext } from "../../socket/socket";
 import {
   addVideoToPlaylist,
+  getCurrentVideo,
   getPlaylist,
   setInitalPlaylist,
   updateVideoToNextVideo,
+  removeVideoFormList,
 } from "../../store/playlist.slice";
 import ColumnBox from "../ColumnBox/ColumnBox";
 import FBox from "../FBox/FBox";
@@ -17,6 +19,7 @@ import styles from "./Playlist.module.css";
 const Playlist = () => {
   const socketContext = useContext(SocketContext);
   const playList = useSelector(getPlaylist);
+  const currentVideo = useSelector(getCurrentVideo);
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +41,7 @@ const Playlist = () => {
         dispatch(updateVideoToNextVideo());
       }
     });
-  }, [dispatch, socketContext]);
+  }, [dispatch, socketContext, currentVideo]);
 
   const onAddVideoHandler = useCallback(() => {
     if (!isLoading) {
