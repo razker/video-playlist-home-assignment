@@ -46,7 +46,7 @@ const VideoPlayer = () => {
   };
 
   return (
-    <FBox>
+    <FBox className={styles.videoOutterContainer}>
       <YouTube
         ref={player}
         videoId={currentVideo?.videoId}

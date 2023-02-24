@@ -1,8 +1,14 @@
 .outerContainer {
-  padding: 10px;
+  padding: 25px;
 }
 
-.innerContainer {
+.playlistContainer {
   flex: 1;
   align-items: center;
+}
+
+.videoContainer {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 }

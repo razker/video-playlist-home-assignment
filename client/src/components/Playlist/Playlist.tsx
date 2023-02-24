@@ -1,4 +1,5 @@
 import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
+import { useRef } from "react";
 import { useCallback } from "react";
 import { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -56,14 +57,15 @@ const Playlist = () => {
   );
 
   return (
-    <ColumnBox>
-      <FBox>
+    <ColumnBox className={styles.outterContainer}>
+      <FBox className={styles.textInputContainer}>
         <TextField
           id="standard-basic"
           label="Search video"
           value={textInput}
           onChange={(e) => setTextInput(e.target.value)}
           onKeyUp={onEnterPress}
+          sx={{ ml: 1, flex: 1, paddingRight: 2 }}
         />
         <Button
           disabled={isLoading}
@@ -80,7 +82,7 @@ const Playlist = () => {
             bgcolor: "background.paper",
             position: "relative",
             overflow: "auto",
-            maxHeight: 600,
+            maxHeight: 480,
             "& ul": { padding: 0 },
           }}
         >

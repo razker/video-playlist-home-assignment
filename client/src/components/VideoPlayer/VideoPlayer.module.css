@@ -1,3 +1,5 @@
-.template {
-  background-color: red;
+.videoOutterContainer {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }

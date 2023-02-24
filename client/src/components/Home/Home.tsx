@@ -22,10 +22,10 @@ const Home = () => {
   return (
     <SocketContext.Provider value={socket}>
       <FBox className={styles.outerContainer}>
-        <ColumnBox className={styles.innerContainer}>
+        <ColumnBox className={styles.playlistContainer}>
           <Playlist />
         </ColumnBox>
-        <ColumnBox className={styles.innerContainer}>
+        <ColumnBox className={styles.videoContainer}>
           <VideoPlayer />
         </ColumnBox>
       </FBox>
