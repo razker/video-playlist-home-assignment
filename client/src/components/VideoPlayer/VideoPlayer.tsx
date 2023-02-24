@@ -1,5 +1,5 @@
 import YouTube, { YouTubeProps } from "react-youtube";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCurrentVideo,
@@ -9,16 +9,15 @@ import {
 import FBox from "../FBox/FBox";
 import styles from "./VideoPlayer.module.css";
 
+const videoOptions: YouTubeProps["opts"] = {
+  playerVars: {
+    autoplay: 1,
+  },
+};
 const VideoPlayer = () => {
   const player: any = useRef(null);
   const currentVideo = useSelector(getCurrentVideo);
   const dispatch = useDispatch();
-
-  const videoOptions: YouTubeProps["opts"] = {
-    playerVars: {
-      autoplay: 1,
-    },
-  };
 
   useEffect(() => {
     if (player?.current && currentVideo?.videoId) {
@@ -26,22 +25,28 @@ const VideoPlayer = () => {
     }
   }, [currentVideo]);
 
-  const handleStatusChanged = (e: any) => {
-    if (e.data === 0) {
-      handleChangeToNextVideo();
-    }
-  };
-
-  const handleError = (e: any) => {
-    if (e.data) {
-      handleChangeToNextVideo();
-    }
-  };
-
-  const handleChangeToNextVideo = () => {
+  const handleChangeToNextVideo = useCallback(() => {
     dispatch(removeVideoFormList(currentVideo.id));
     dispatch(updateVideoToNextVideo());
-  };
+  }, [currentVideo, dispatch]);
+
+  const handleStatusChanged = useCallback(
+    (e: any) => {
+      if (e.data === 0) {
+        handleChangeToNextVideo();
+      }
+    },
+    [handleChangeToNextVideo]
+  );
+
+  const handleError = useCallback(
+    (e: any) => {
+      if (e.data) {
+        handleChangeToNextVideo();
+      }
+    },
+    [handleChangeToNextVideo]
+  );
 
   return (
     <FBox className={styles.videoOutterContainer}>

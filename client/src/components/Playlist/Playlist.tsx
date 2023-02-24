@@ -1,5 +1,4 @@
-import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
-import { useRef } from "react";
+import { Button, List, ListItem, TextField } from "@mui/material";
 import { useCallback } from "react";
 import { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,7 +9,6 @@ import {
   getPlaylist,
   setInitalPlaylist,
   updateVideoToNextVideo,
-  removeVideoFormList,
 } from "../../store/playlist.slice";
 import ColumnBox from "../ColumnBox/ColumnBox";
 import FBox from "../FBox/FBox";
