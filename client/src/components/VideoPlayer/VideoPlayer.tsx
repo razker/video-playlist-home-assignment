@@ -1,5 +1,5 @@
 import YouTube, { YouTubeProps } from "react-youtube";
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCurrentVideo,
@@ -7,13 +7,11 @@ import {
   updateVideoToNextVideo,
 } from "../../store/playlist.slice";
 import FBox from "../FBox/FBox";
-import { SocketContext } from "../../socket/socket";
 import styles from "./VideoPlayer.module.css";
 
 const VideoPlayer = () => {
   const player: any = useRef(null);
   const currentVideo = useSelector(getCurrentVideo);
-  const socketContext = useContext(SocketContext);
   const dispatch = useDispatch();
 
   const videoOptions: YouTubeProps["opts"] = {
@@ -23,7 +21,6 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
-    console.log("currentVideo", currentVideo);
     if (player?.current && currentVideo?.videoId) {
       player.current.getInternalPlayer().playVideo();
     }
