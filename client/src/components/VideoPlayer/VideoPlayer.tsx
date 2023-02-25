@@ -45,9 +45,9 @@ const VideoPlayer = () => {
     [handleChangeToNextVideo]
   );
 
-  const onPlayerEnd = () => {
+  const onPlayerEnd = useCallback(() => {
     handleChangeToNextVideo();
-  };
+  }, [handleChangeToNextVideo]);
 
   return (
     <FBox className={styles.videoOutterContainer}>
@@ -58,7 +58,7 @@ const VideoPlayer = () => {
         onEnded={onPlayerEnd}
         onError={handleError}
         controls
-        muted
+        //muted
       />
     </FBox>
   );
