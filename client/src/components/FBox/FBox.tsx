@@ -5,11 +5,13 @@ type FBoxProps = {
   children?: ReactNode;
   className?: string;
   onClick?: () => void;
+  dataTestId?: string;
 };
 
-const FBox = ({ children, className, onClick }: FBoxProps) => {
+const FBox = ({ children, className, onClick, dataTestId }: FBoxProps) => {
   return (
     <div
+      data-testid={dataTestId}
       className={`${styles.container} ${className ? className : ""}`}
       onClick={onClick}
     >

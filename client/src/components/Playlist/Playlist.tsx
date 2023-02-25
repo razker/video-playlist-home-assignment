@@ -1,23 +1,24 @@
 import { Button, List, ListItem, TextField } from "@mui/material";
 import { useCallback } from "react";
 import { useContext, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SocketContext } from "../../socket/socket";
 import {
   addVideoToPlaylist,
-  getCurrentVideo,
-  getPlaylist,
   setInitalPlaylist,
   updateVideoToNextVideo,
 } from "../../store/playlist.slice";
 import ColumnBox from "../ColumnBox/ColumnBox";
 import FBox from "../FBox/FBox";
 import styles from "./Playlist.module.css";
+import { Playlist as PlaylistType } from "../../../../types/playlist";
 
-const Playlist = () => {
+type PlaylistProps = {
+  playlist: PlaylistType;
+};
+
+const Playlist = ({ playlist }: PlaylistProps) => {
   const socketContext = useContext(SocketContext);
-  const playList = useSelector(getPlaylist);
-  const currentVideo = useSelector(getCurrentVideo);
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +40,7 @@ const Playlist = () => {
         dispatch(updateVideoToNextVideo());
       }
     });
-  }, [dispatch, socketContext, currentVideo]);
+  }, [dispatch, socketContext]);
 
   const onAddVideoHandler = useCallback(() => {
     if (!isLoading) {
@@ -58,7 +59,10 @@ const Playlist = () => {
   );
 
   return (
-    <ColumnBox className={styles.outterContainer}>
+    <ColumnBox
+      dataTestId={"playlist-outer-container"}
+      className={styles.outterContainer}
+    >
       <FBox className={styles.textInputContainer}>
         <TextField
           id="standard-basic"
@@ -86,7 +90,7 @@ const Playlist = () => {
             maxHeight: 480,
           }}
         >
-          {playList.map((video, index: number) => {
+          {playlist?.map((video, index: number) => {
             return (
               <ListItem key={video.id} selected={index === 0}>
                 <FBox className={styles.listItemContainer}>

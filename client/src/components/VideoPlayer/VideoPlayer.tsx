@@ -2,12 +2,12 @@ import ReactPlayer from "react-player/youtube";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  getCurrentVideo,
   removeVideoFormList,
   updateVideoToNextVideo,
 } from "../../store/playlist.slice";
 import FBox from "../FBox/FBox";
 import styles from "./VideoPlayer.module.css";
+import { Video } from "../../../../types/playlist";
 
 const videoOptions = {
   playerVars: {
@@ -18,8 +18,11 @@ const videoOptions = {
 const youTubeUrlBuilder = (videoId: string) =>
   `https://www.youtube.com/watch?v=${videoId}`;
 
-const VideoPlayer = () => {
-  const currentVideo = useSelector(getCurrentVideo);
+type VideoPlayerProps = {
+  currentVideo: Video;
+};
+
+const VideoPlayer = ({ currentVideo }: VideoPlayerProps) => {
   const dispatch = useDispatch();
   const [videoUrl, setVideoUrl] = useState("");
 
