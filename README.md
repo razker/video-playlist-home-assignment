@@ -1,6 +1,6 @@
 # video-playlist-home-assignment
 
-This project is a video playlist implementation mad by Raz Kerman.
+This project is a video playlist implementation made by Raz Kerman.
 I ran the code locally using Node v19.0.0, npm 8.19.2 and on Windows 11.
 
 ## Running
@@ -10,7 +10,7 @@ I ran the code locally using Node v19.0.0, npm 8.19.2 and on Windows 11.
    Data API (v3) (You can contact Raz if you don't have one).
 3. Run npm run.
 4. Run on the command shell cd client && npm install.
-5. Add a `.env` file (you can use .env.example).
+5. Add a `.env` in the `client/` file (you can use .env.example).
 6. npm start.
 
 ## Things to add (if I had more time)
