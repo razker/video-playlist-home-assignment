@@ -15,7 +15,7 @@ I ran the code locally using Node v19.0.0, npm 8.19.2 and on Windows 11.
 
 ## Things to add (if I had more time)
 
-1. More tests for frontend.
+1. More tests for frontend (Redux and socket.io).
 2. Tests for backend.
 3. Add delete video and moving video order in the playlist.
 
@@ -28,7 +28,7 @@ their local copy of the playlist and sent to the server (via socket.io). Once a 
 
 ## Client Tests
 
-To run tests use npm run test. I made tests for 1 major component only, but if I had more timr I would test Redux and socket.io as well.
+To run tests use npm run test. I made tests for 1 major component only, but if I had more time I would test Redux and socket.io as well.
 
 ## The Server
 
