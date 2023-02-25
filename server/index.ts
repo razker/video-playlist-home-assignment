@@ -42,6 +42,8 @@ io.on("connection", (socket) => {
       io.emit("addVideoResponse", videoToAdd);
     } catch (e) {
       logger.error(e);
+      //TODO: Handle Error in client
+      io.emit("addVideoResponse", {});
     }
   });
 

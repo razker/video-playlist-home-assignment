@@ -25,11 +25,11 @@ const Playlist = () => {
 
   useEffect(() => {
     socketContext.on("addVideoResponse", (resp) => {
-      if (resp) {
+      if (resp?.id) {
         dispatch(addVideoToPlaylist(resp));
-        setTextInput("");
       }
 
+      setTextInput("");
       setIsLoading(false);
     });
 

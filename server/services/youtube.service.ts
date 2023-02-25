@@ -17,8 +17,8 @@ export class YoutubeService {
   }
 
   async parseVideoResponse(videoResponse) {
-    if ("error" in videoResponse) {
-      throw new Error(videoResponse.error.message);
+    if (videoResponse.error || !videoResponse?.items[0]?.id?.videoId) {
+      throw new Error(videoResponse?.error?.message || "No video found");
     }
 
     const item = videoResponse.items[0];
