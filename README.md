@@ -24,7 +24,7 @@ I ran the code locally using Node v19.0.0, npm 8.19.2 and on Windows 11.
 The client allows users to add videos to the playlist. The updates that a user makes are simultaneously committed to
 their local copy of the playlist and sent to the server (via socket.io). Once a user added a video, other clients see the addition.
 
-### Important Note: I know that the specfication says to add video url, But I found it more helpfull to use Youtube API and run a query and to return the first video that serves the query. Hope it's OK by you (: .
+### Important Note: I know that the specfication says to add video url, But I found it more helpfull to use Youtube API and run a query and to return the first video that serves the query. Hope it's OK by you (:
 
 ## Client Tests
 
