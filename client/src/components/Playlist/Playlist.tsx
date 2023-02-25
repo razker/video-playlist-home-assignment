@@ -65,6 +65,7 @@ const Playlist = ({ playlist }: PlaylistProps) => {
     >
       <FBox className={styles.textInputContainer}>
         <TextField
+          data-testid={"text-field"}
           id="standard-basic"
           label="Search video"
           value={textInput}
@@ -73,6 +74,7 @@ const Playlist = ({ playlist }: PlaylistProps) => {
           sx={{ ml: 1, flex: 1, paddingRight: 2 }}
         />
         <Button
+          data-testid={"add-button"}
           disabled={isLoading}
           variant="contained"
           onClick={onAddVideoHandler}
@@ -92,7 +94,11 @@ const Playlist = ({ playlist }: PlaylistProps) => {
         >
           {playlist?.map((video, index: number) => {
             return (
-              <ListItem key={video.id} selected={index === 0}>
+              <ListItem
+                data-testid={"list-item"}
+                key={video.id}
+                selected={index === 0}
+              >
                 <FBox className={styles.listItemContainer}>
                   <FBox className={styles.videoTextOutterConatiner}>
                     <span className={styles.videoText}>{video.title}</span>

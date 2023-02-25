@@ -1,6 +1,6 @@
 # Video playlist client
 
-This app was made for private use only.
+This project is the frontend of a side project developed by Raz Kerman.
 
 ## Available Scripts
 
