@@ -58,6 +58,7 @@ const VideoPlayer = () => {
         onEnded={onPlayerEnd}
         onError={handleError}
         controls
+        muted
       />
     </FBox>
   );
