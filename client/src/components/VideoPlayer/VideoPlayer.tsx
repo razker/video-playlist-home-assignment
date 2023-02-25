@@ -1,5 +1,6 @@
 import YouTube, { YouTubeProps } from "react-youtube";
-import { useCallback, useEffect, useRef } from "react";
+import ReactPlayer from "react-player/youtube";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCurrentVideo,
@@ -9,15 +10,26 @@ import {
 import FBox from "../FBox/FBox";
 import styles from "./VideoPlayer.module.css";
 
-const videoOptions: YouTubeProps["opts"] = {
+const videoOptions = {
   playerVars: {
     autoplay: 1,
   },
 };
+
+const youTubeUrlBuilder = (videoId: string) =>
+  `https://www.youtube.com/watch?v=${videoId}`;
+
 const VideoPlayer = () => {
   const player: any = useRef(null);
   const currentVideo = useSelector(getCurrentVideo);
   const dispatch = useDispatch();
+  const [videoUrl, setVideoUrl] = useState("");
+
+  useEffect(() => {
+    if (currentVideo?.videoId) {
+      setVideoUrl(youTubeUrlBuilder(currentVideo.videoId));
+    }
+  }, [currentVideo]);
 
   const handleChangeToNextVideo = useCallback(() => {
     if (currentVideo) {
@@ -35,10 +47,9 @@ const VideoPlayer = () => {
     [handleChangeToNextVideo]
   );
 
-  const onPlayerReady: YouTubeProps["onReady"] = (event) => {
+  const onPlayerReady = (player: ReactPlayer) => {
     if (currentVideo) {
-      player.current = event.target;
-      player.current.playVideo();
+      // player.playVideo();
     }
   };
 
@@ -48,12 +59,13 @@ const VideoPlayer = () => {
 
   return (
     <FBox className={styles.videoOutterContainer}>
-      <YouTube
-        videoId={currentVideo?.videoId}
-        opts={videoOptions}
+      <ReactPlayer
+        url={videoUrl}
+        config={videoOptions}
+        playing
+        onEnded={onPlayerEnd}
         onError={handleError}
-        onReady={onPlayerReady}
-        onEnd={onPlayerEnd}
+        controls
       />
     </FBox>
   );
