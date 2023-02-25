@@ -9,4 +9,6 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-[http://localhost:3001](http://localhost:3001) is the deafult port to this service.
+[http://localhost:3080](http://localhost:3080) is the deafult port to this service.
+
+### Don't forget to add .env file!
