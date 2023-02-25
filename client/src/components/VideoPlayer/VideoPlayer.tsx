@@ -1,6 +1,5 @@
-import YouTube, { YouTubeProps } from "react-youtube";
 import ReactPlayer from "react-player/youtube";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCurrentVideo,
@@ -20,7 +19,6 @@ const youTubeUrlBuilder = (videoId: string) =>
   `https://www.youtube.com/watch?v=${videoId}`;
 
 const VideoPlayer = () => {
-  const player: any = useRef(null);
   const currentVideo = useSelector(getCurrentVideo);
   const dispatch = useDispatch();
   const [videoUrl, setVideoUrl] = useState("");
@@ -46,12 +44,6 @@ const VideoPlayer = () => {
     },
     [handleChangeToNextVideo]
   );
-
-  const onPlayerReady = (player: ReactPlayer) => {
-    if (currentVideo) {
-      // player.playVideo();
-    }
-  };
 
   const onPlayerEnd = () => {
     handleChangeToNextVideo();
